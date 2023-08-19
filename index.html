@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Styles for Moving Text */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden; /* Hide overflow */
+            font-family: Arial, sans-serif;
+        }
+        .moving-text {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: moveText 5s linear infinite alternate, moveRandom 10s linear infinite alternate;
+        }
+        @keyframes moveText {
+            from {
+                top: var(--start-y);
+                left: var(--start-x);
+            }
+            to {
+                top: var(--end-y);
+                left: var(--end-x);
+            }
+        }
+        @keyframes moveRandom {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(
+                    calc(100vw * var(--random-x)), 
+                    calc(100vh * var(--random-y))
+                );
+            }
+        }
+        
+        /* Styles for Rotating Cat */
+        .rotating-cat-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+        .rotating-cat {
+            width: 200px;
+            height: 200px;
+            animation: rotateCat 5s linear infinite;
+            perspective: 100px;
+            cursor: pointer; /* Add cursor pointer */
+        }
+        @keyframes rotateCat {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Styles for Rainbow Effect */
+        .rainbow-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+        .rainbow-effect::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f06, #9f6, #06f, #f06);
+            background-size: 400% 400%;
+            animation: rainbowAnimation 5s infinite;
+        }
+        @keyframes rainbowAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+    </style>
+    <title>Combined Effects</title>
+</head>
+<body>
+    <!-- Moving Text Elements -->
+    <script>
+        for (let i = 0; i < 100; i++) {
+            const text = document.createElement('div');
+            text.className = 'moving-text';
+            text.innerText = 'The Cat';
+            text.style.setProperty('--start-x', Math.random() * 100 + 'vw');
+            text.style.setProperty('--start-y', Math.random() * 100 + 'vh');
+            text.style.setProperty('--end-x', Math.random() * 100 + 'vw');
+            text.style.setProperty('--end-y', Math.random() * 100 + 'vh');
+            text.style.setProperty('--random-x', Math.random());
+            text.style.setProperty('--random-y', Math.random());
+            document.body.appendChild(text);
+        }
+    </script>
+
+    <!-- Rotating Cat Element -->
+    <div class="rotating-cat-container">
+        <a href="rainbow.html"> <!-- Link to the rainbow page -->
+            <img src="cat.png" alt="Rotating Cat" class="rotating-cat">
+        </a>
+    </div>
+</body>
+</html>
